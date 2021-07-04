@@ -1,8 +1,10 @@
 package com.thoughtworks.androidtrain
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -14,5 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Log.d(TAG, "MainActivity Created!")
+
+        val button1 = findViewById<Button>(R.id.button1)
+        button1.setOnClickListener {
+            val intent = Intent(this, ConstraintActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
