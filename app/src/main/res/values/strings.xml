@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HelloWorld</string>
     <string name="button1">constraint_layout</string>
-    <string name="button2">button 2</string>
+    <string name="button2">login</string>
     <string name="button3">button 3</string>
     <string name="button4">button 4</string>
     <string name="button5">button 5</string>
@@ -13,6 +13,12 @@
     <string name="title">Android practice</string>
     <string name="hello">hello!</string>
     <string name="sign_up">signup</string>
-    <string name="login">login</string>
+    <string name="login">Login</string>
     <string name="github">Github</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_connect_with">or connect with</string>
+    <string name="sign_up_with_email">Sign Up with E-mail</string>
 </resources>

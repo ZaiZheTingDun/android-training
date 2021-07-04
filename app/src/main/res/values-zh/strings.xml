@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HelloWorld</string>
     <string name="button1">constraint_layout</string>
-    <string name="button2">按钮 2</string>
+    <string name="button2">登录</string>
     <string name="button3">按钮 3</string>
     <string name="button4">按钮 4</string>
     <string name="button5">按钮 5</string>
@@ -15,4 +15,10 @@
     <string name="sign_up">注册</string>
     <string name="login">登录</string>
     <string name="github">Github</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="remember_me">记住我</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="or_connect_with">or connect with</string>
+    <string name="sign_up_with_email">使用 E-mail 注册</string>
 </resources>
