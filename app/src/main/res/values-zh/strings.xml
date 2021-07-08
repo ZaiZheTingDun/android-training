@@ -2,7 +2,7 @@
     <string name="app_name">HelloWorld</string>
     <string name="button1">constraint_layout</string>
     <string name="button2">登录</string>
-    <string name="button3">按钮 3</string>
+    <string name="button3">pick_contact</string>
     <string name="button4">按钮 4</string>
     <string name="button5">按钮 5</string>
     <string name="button7">按钮 7</string>
