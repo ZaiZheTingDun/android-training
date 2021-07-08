@@ -20,20 +20,15 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "MainActivity Created!")
 
-        val button1 = findViewById<Button>(R.id.button1)
-        button1.setOnClickListener {
-            val intent = Intent(this, ConstraintActivity::class.java)
-            startActivity(intent)
+        findViewById<Button>(R.id.button1).setOnClickListener {
+            startActivity(Intent(this, ConstraintActivity::class.java))
         }
 
-        val loginButton = findViewById<Button>(R.id.button2)
-        loginButton.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+        findViewById<Button>(R.id.button2).setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        val pickContactButton = findViewById<Button>(R.id.button3)
-        pickContactButton.setOnClickListener {
+        findViewById<Button>(R.id.button3).setOnClickListener {
             selectContact()
         }
     }
