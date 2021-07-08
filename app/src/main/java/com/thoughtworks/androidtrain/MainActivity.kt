@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
             addCategory(Intent.CATEGORY_DEFAULT)
         }
-        Log.d(TAG, "test")
         if (intent.resolveActivity(packageManager) != null) {
             startActivityForResult(intent, REQUEST_SELECT_CONTACT)
         }
