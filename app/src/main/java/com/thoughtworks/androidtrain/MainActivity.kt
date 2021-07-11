@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button3).setOnClickListener {
             selectContact()
         }
+
+        findViewById<Button>(R.id.button4).setOnClickListener {
+            startActivity(Intent(this, MyFragmentActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

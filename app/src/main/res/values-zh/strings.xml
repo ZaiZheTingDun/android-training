@@ -3,7 +3,7 @@
     <string name="button1">constraint_layout</string>
     <string name="button2">登录</string>
     <string name="button3">pick_contact</string>
-    <string name="button4">按钮 4</string>
+    <string name="button4">fragment</string>
     <string name="button5">按钮 5</string>
     <string name="button7">按钮 7</string>
     <string name="button6">按钮 6</string>
@@ -21,4 +21,8 @@
     <string name="forgot_password">忘记密码？</string>
     <string name="or_connect_with">or connect with</string>
     <string name="sign_up_with_email">使用 E-mail 注册</string>
+    <string name="android">Android</string>
+    <string name="java">Java</string>
+    <string name="android_fragment_content">Android is a mobile operating system based on a modified version of the Linux kernel and other open source software, designed primarily for touchscreen mobile devices such as smartphones and tablets.</string>
+    <string name="java_fragment_content">Java is a High Level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.</string>
 </resources>
