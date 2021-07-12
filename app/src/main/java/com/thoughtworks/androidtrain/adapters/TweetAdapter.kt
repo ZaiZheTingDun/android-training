@@ -9,23 +9,45 @@ import com.thoughtworks.androidtrain.R
 import com.thoughtworks.androidtrain.data.model.Tweet
 
 class TweetAdapter(private val tweetItems: List<Tweet>) :
-    RecyclerView.Adapter<TweetAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    companion object {
+        private const val CONTENT_VIEW_TYPE = 0
+        private const val FOOTER_VIEW_TYPE = 1
+    }
+
+    class ContentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val accountNameTextView: TextView = view.findViewById(R.id.account_name)
         val contentTextView: TextView = view.findViewById(R.id.tweet_content)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_tweet_content, parent, false)
-        return ViewHolder(view)
+    class FooterViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            CONTENT_VIEW_TYPE -> {
+                ContentViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_tweet_content, parent, false)
+                )
+            }
+            else -> {
+                FooterViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_tweet_footer, parent, false)
+                )
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.accountNameTextView.text = tweetItems[position].sender.nick
-        holder.contentTextView.text = tweetItems[position].content ?: ""
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is ContentViewHolder) {
+            holder.accountNameTextView.text = tweetItems[position].sender.nick
+            holder.contentTextView.text = tweetItems[position].content ?: ""
+        }
     }
 
-    override fun getItemCount() = tweetItems.size
+    override fun getItemCount() = tweetItems.size + 1
+
+    override fun getItemViewType(position: Int): Int = if (position != itemCount - 1) CONTENT_VIEW_TYPE else FOOTER_VIEW_TYPE
 }
