@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button5).setOnClickListener {
             startActivity(Intent(this, RecyclerViewActivity::class.java))
         }
+
+        findViewById<Button>(R.id.button6).setOnClickListener {
+            startActivity(Intent(this, ThreadActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

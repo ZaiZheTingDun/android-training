@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloWorld">
+        <activity android:name=".ThreadActivity" />
         <activity android:name=".RecyclerViewActivity" />
         <activity android:name=".MyFragmentActivity" />
         <activity android:name=".LoginActivity" />

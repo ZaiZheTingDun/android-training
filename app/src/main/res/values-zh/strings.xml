@@ -5,8 +5,8 @@
     <string name="button3">pick_contact</string>
     <string name="button4">fragment</string>
     <string name="button5">recycler_view</string>
+    <string name="button6">thread</string>
     <string name="button7">按钮 7</string>
-    <string name="button6">按钮 6</string>
     <string name="button8">按钮 8</string>
     <string name="button9">按钮 9</string>
     <string name="button10">按钮 10</string>
@@ -27,4 +27,5 @@
     <string name="java_fragment_content">Java is a High Level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.</string>
     <string name="avatar">avatar</string>
     <string name="tweet_footer">到底了</string>
+    <string name="start">Start</string>
 </resources>
