@@ -3,8 +3,10 @@ package com.thoughtworks.androidtrain.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.thoughtworks.androidtrain.GlideApp
 import com.thoughtworks.androidtrain.R
 import com.thoughtworks.androidtrain.data.model.Tweet
 
@@ -19,6 +21,7 @@ class TweetAdapter(private val tweetItems: List<Tweet>) :
     class ContentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val accountNameTextView: TextView = view.findViewById(R.id.account_name)
         val contentTextView: TextView = view.findViewById(R.id.tweet_content)
+        val avatarImageView: ImageView = view.findViewById(R.id.avatar)
     }
 
     class FooterViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -44,6 +47,18 @@ class TweetAdapter(private val tweetItems: List<Tweet>) :
         if (holder is ContentViewHolder) {
             holder.accountNameTextView.text = tweetItems[position].sender.nick
             holder.contentTextView.text = tweetItems[position].content ?: ""
+
+            Thread {
+                val avatarImageView = holder.avatarImageView
+                val drawable = GlideApp
+                    .with(avatarImageView.context)
+                    .load(tweetItems[position].sender.avatar)
+                    .submit(48, 48)
+                    .get()
+                avatarImageView.post {
+                    avatarImageView.setImageDrawable(drawable)
+                }
+            }.start()
         }
     }
 
