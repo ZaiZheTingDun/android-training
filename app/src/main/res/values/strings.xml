@@ -6,7 +6,7 @@
     <string name="button4">fragment</string>
     <string name="button5">recycler_view</string>
     <string name="button6">thread</string>
-    <string name="button7">button 7</string>
+    <string name="button7">handler</string>
     <string name="button8">button 8</string>
     <string name="button9">button 9</string>
     <string name="button10">button 10</string>
@@ -28,4 +28,6 @@
     <string name="avatar">avatar</string>
     <string name="tweet_footer">到底了</string>
     <string name="start">Start</string>
+    <string name="handler_button1">button1</string>
+    <string name="handler_button2">button2</string>
 </resources>

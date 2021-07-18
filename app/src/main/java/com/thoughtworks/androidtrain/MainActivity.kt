@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button6).setOnClickListener {
             startActivity(Intent(this, ThreadActivity::class.java))
         }
+
+        findViewById<Button>(R.id.button7).setOnClickListener {
+            startActivity(Intent(this, HandlerActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
