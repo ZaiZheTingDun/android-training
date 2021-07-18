@@ -7,7 +7,7 @@
     <string name="button5">recycler_view</string>
     <string name="button6">thread</string>
     <string name="button7">handler</string>
-    <string name="button8">button 8</string>
+    <string name="button8">rxjava</string>
     <string name="button9">button 9</string>
     <string name="button10">button 10</string>
     <string name="title">Android practice</string>
