@@ -8,7 +8,7 @@
     <string name="button6">thread</string>
     <string name="button7">handler</string>
     <string name="button8">rxjava</string>
-    <string name="button9">button 9</string>
+    <string name="button9">sp</string>
     <string name="button10">button 10</string>
     <string name="title">Android practice</string>
     <string name="hello">hello!</string>
@@ -29,5 +29,8 @@
     <string name="tweet_footer">到底了</string>
     <string name="start">Start</string>
     <string name="handler_button1">button1</string>
+    <string name="sp_content">Welcome back</string>
+    <string name="sp_prompt_information">Prompt message:\nclick "get it" and no longer prompt.</string>
+    <string name="sp_get_it">get it</string>
     <string name="handler_button2">button2</string>
 </resources>
