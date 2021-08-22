@@ -19,7 +19,9 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         val fetchTweets = AppApplication.getTweetRepository().fetchTweets()
         compositeDisposable.add(
-            fetchTweets.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { recyclerView.adapter = TweetAdapter(it) })
+            fetchTweets.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
+                recyclerView.adapter = TweetAdapter(it)
+            })
     }
 
     override fun onDestroy() {

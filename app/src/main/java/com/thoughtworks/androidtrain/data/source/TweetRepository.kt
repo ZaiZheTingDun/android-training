@@ -1,10 +1,11 @@
 package com.thoughtworks.androidtrain.data.source
 
 import android.content.Context
+import android.os.Looper
+import android.widget.Toast
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.thoughtworks.androidtrain.R
 import com.thoughtworks.androidtrain.data.model.Comment
 import com.thoughtworks.androidtrain.data.model.Image
 import com.thoughtworks.androidtrain.data.model.Sender
@@ -17,11 +18,16 @@ import com.thoughtworks.androidtrain.data.source.local.room.entity.TweetEntity
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.io.InputStreamReader
-import java.lang.Exception
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class TweetRepository(private val context: Context) : ITweetRepository {
+    companion object {
+        private const val URL = "https://thoughtworks-mobile-2018.herokuapp.com/user/jsmith/tweets"
+    }
+
     private val appDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "practice-db").build()
+    private val httpClient = OkHttpClient()
 
     override fun fetchTweets(): Flowable<List<Tweet>> {
         updateDatabase().subscribeOn(Schedulers.io()).subscribeOn(Schedulers.io()).subscribe()
@@ -48,12 +54,26 @@ class TweetRepository(private val context: Context) : ITweetRepository {
         }
     }
 
-    private fun updateDatabase(): Single<Boolean> {
-        val readText = InputStreamReader(context.resources.openRawResource(R.raw.tweets)).readText()
-        val tweets = deserializationData(readText)
-
+    private fun loadData(): Single<List<Tweet>> {
         return Single.create {
             try {
+                val request = Request.Builder().url(URL).build()
+                val responseBody = httpClient.newCall(request).execute().body!!.string()
+                it.onSuccess(deserializationData(responseBody))
+            } catch (e: Exception) {
+                Looper.prepare()
+                Toast.makeText(context, "load tweet data failed.", Toast.LENGTH_SHORT).show()
+                Looper.loop()
+                it.onError(e)
+            }
+        }
+    }
+
+    private fun updateDatabase(): Single<Boolean> {
+        return Single.create {
+            try {
+                val tweets = loadData().blockingGet()
+
                 appDatabase.clearAllTables()
                 appDatabase.runInTransaction {
                     tweets
