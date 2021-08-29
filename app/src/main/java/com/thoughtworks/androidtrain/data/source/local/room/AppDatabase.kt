@@ -14,7 +14,8 @@ import com.thoughtworks.androidtrain.data.source.local.room.entity.*
         ImageEntity::class,
         SenderEntity::class,
         CommentEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun tweetDao(): TweetDao

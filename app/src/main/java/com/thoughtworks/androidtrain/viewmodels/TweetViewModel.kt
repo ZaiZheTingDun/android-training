@@ -1,12 +1,16 @@
 package com.thoughtworks.androidtrain.viewmodels
 
 import androidx.lifecycle.*
-import com.thoughtworks.androidtrain.AppApplication
 import com.thoughtworks.androidtrain.data.model.Tweet
+import com.thoughtworks.androidtrain.data.source.TweetRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TweetViewModel: ViewModel() {
-    private val tweetRepository = AppApplication.getTweetRepository()
+@HiltViewModel
+class TweetViewModel @Inject constructor(
+    private val tweetRepository: TweetRepository
+) : ViewModel() {
     var tweets: LiveData<List<Tweet>> = MutableLiveData()
 
     init {

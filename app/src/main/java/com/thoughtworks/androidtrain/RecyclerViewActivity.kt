@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.thoughtworks.androidtrain.adapters.TweetAdapter
 import com.thoughtworks.androidtrain.viewmodels.TweetViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecyclerViewActivity : AppCompatActivity() {
     private val tweetViewModel: TweetViewModel by viewModels()
 

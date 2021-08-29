@@ -6,14 +6,19 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thoughtworks.androidtrain.data.model.Tweet
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetDataSource(private val context: Context) {
-    private val httpClient = OkHttpClient()
-
+@Singleton
+class TweetDataSource @Inject constructor(
+    private val httpClient: OkHttpClient,
+    @ApplicationContext private val context: Context
+) {
     suspend fun loadData(): List<Tweet> {
         return withContext(Dispatchers.IO) {
             val request = Request.Builder().url(URL).build()

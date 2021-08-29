@@ -1,7 +1,5 @@
 package com.thoughtworks.androidtrain.data.source
 
-import android.content.Context
-import androidx.room.Room
 import androidx.room.withTransaction
 import com.thoughtworks.androidtrain.data.model.Comment
 import com.thoughtworks.androidtrain.data.model.Image
@@ -9,6 +7,10 @@ import com.thoughtworks.androidtrain.data.model.Sender
 import com.thoughtworks.androidtrain.data.model.Tweet
 import com.thoughtworks.androidtrain.data.source.local.datasource.TweetDataSource
 import com.thoughtworks.androidtrain.data.source.local.room.AppDatabase
+import com.thoughtworks.androidtrain.data.source.local.room.dao.CommentDao
+import com.thoughtworks.androidtrain.data.source.local.room.dao.ImageDao
+import com.thoughtworks.androidtrain.data.source.local.room.dao.SenderDao
+import com.thoughtworks.androidtrain.data.source.local.room.dao.TweetDao
 import com.thoughtworks.androidtrain.data.source.local.room.entity.CommentEntity
 import com.thoughtworks.androidtrain.data.source.local.room.entity.ImageEntity
 import com.thoughtworks.androidtrain.data.source.local.room.entity.SenderEntity
@@ -18,10 +20,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class TweetRepository(context: Context) : ITweetRepository {
-    private val appDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "practice-db").build()
-    private val tweetDataSource = TweetDataSource(context)
+class TweetRepository @Inject constructor(
+    private val appDatabase: AppDatabase,
+    private val tweetDataSource: TweetDataSource,
+    private val senderDao: SenderDao,
+    private val imageDao: ImageDao,
+    private val commentDao: CommentDao,
+    private val tweetDao: TweetDao
+) : ITweetRepository {
 
     override fun fetchTweets(): Flow<List<Tweet>> {
         runBlocking(Dispatchers.IO) { updateTweets() }
@@ -29,10 +37,10 @@ class TweetRepository(context: Context) : ITweetRepository {
     }
 
     private fun getTweets(): Flow<List<Tweet>> {
-        return appDatabase.tweetDao().findAll().map { tweetEntities ->
-            val senderEntities = appDatabase.senderDao().findAll().first()
-            val commentEntities = appDatabase.commentDao().findAll().first()
-            val imageEntities = appDatabase.imageDao().findAll().first()
+        return tweetDao.findAll().map { tweetEntities ->
+            val senderEntities = senderDao.findAll().first()
+            val commentEntities = commentDao.findAll().first()
+            val imageEntities = imageDao.findAll().first()
 
             tweetEntities.map { tweetEntity ->
                 Tweet().apply {
@@ -80,11 +88,11 @@ class TweetRepository(context: Context) : ITweetRepository {
         }
     }
 
-    private suspend fun insertTweet(tweetEntity: TweetEntity) = appDatabase.tweetDao().insert(tweetEntity).single()
+    private suspend fun insertTweet(tweetEntity: TweetEntity) = tweetDao.insert(tweetEntity).single()
 
-    private suspend fun insertSender(senderEntity: SenderEntity) = appDatabase.senderDao().insert(senderEntity).single()
+    private suspend fun insertSender(senderEntity: SenderEntity) = senderDao.insert(senderEntity).single()
 
-    private suspend fun insertComment(commentEntity: CommentEntity) = appDatabase.commentDao().insert(commentEntity).single()
+    private suspend fun insertComment(commentEntity: CommentEntity) = commentDao.insert(commentEntity).single()
 
-    private suspend fun insertImage(imageEntity: ImageEntity) = appDatabase.imageDao().insert(imageEntity).single()
+    private suspend fun insertImage(imageEntity: ImageEntity) = imageDao.insert(imageEntity).single()
 }
