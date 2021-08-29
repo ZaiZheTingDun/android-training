@@ -2,14 +2,16 @@ package com.thoughtworks.androidtrain.data.source.local.room.dao
 
 import androidx.room.*
 import com.thoughtworks.androidtrain.data.source.local.room.entity.SenderEntity
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SenderDao {
     @Query("SELECT * FROM sender")
-    fun findAll(): Flowable<List<SenderEntity>>
+    fun findAll(): Flow<List<SenderEntity>>
+
+    @Query("SELECT * FROM sender")
+    fun findAll1(): List<SenderEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg senders: SenderEntity): Single<List<Long>>
+    suspend fun insert(vararg senders: SenderEntity): List<Long>
 }

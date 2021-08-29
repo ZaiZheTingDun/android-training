@@ -1,8 +1,8 @@
 package com.thoughtworks.androidtrain.data.source
 
 import com.thoughtworks.androidtrain.data.model.Tweet
-import io.reactivex.rxjava3.core.Flowable
+import kotlinx.coroutines.flow.Flow
 
 interface ITweetRepository {
-    fun fetchTweets(): Flowable<List<Tweet>>
+    fun fetchTweets(): Flow<List<Tweet>>
 }

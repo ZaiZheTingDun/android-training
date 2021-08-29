@@ -5,14 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.thoughtworks.androidtrain.data.source.local.room.entity.CommentEntity
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CommentDao {
     @Query("SELECT * FROM comment")
-    fun findAll(): Flowable<List<CommentEntity>>
+    fun findAll(): Flow<List<CommentEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg comments: CommentEntity): Single<List<Long>>
+    suspend fun insert(vararg comments: CommentEntity): List<Long>
 }
