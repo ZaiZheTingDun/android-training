@@ -37,5 +37,9 @@ class DatabaseModule {
         appDatabase.tweetDao()
 
     @Provides
+    fun provideUserDao(appDatabase: AppDatabase) =
+        appDatabase.userDao()
+
+    @Provides
     fun provideTweetRepository(tweetRepository: TweetRepository): ITweetRepository = tweetRepository
 }

@@ -1,20 +1,12 @@
 package com.thoughtworks.androidtrain.data.source
 
 import androidx.room.withTransaction
-import com.thoughtworks.androidtrain.data.model.Comment
-import com.thoughtworks.androidtrain.data.model.Image
-import com.thoughtworks.androidtrain.data.model.Sender
-import com.thoughtworks.androidtrain.data.model.Tweet
+import com.thoughtworks.androidtrain.data.model.*
 import com.thoughtworks.androidtrain.data.source.local.datasource.TweetDataSource
+import com.thoughtworks.androidtrain.data.source.local.datasource.UserDataSource
 import com.thoughtworks.androidtrain.data.source.local.room.AppDatabase
-import com.thoughtworks.androidtrain.data.source.local.room.dao.CommentDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.ImageDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.SenderDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.TweetDao
-import com.thoughtworks.androidtrain.data.source.local.room.entity.CommentEntity
-import com.thoughtworks.androidtrain.data.source.local.room.entity.ImageEntity
-import com.thoughtworks.androidtrain.data.source.local.room.entity.SenderEntity
-import com.thoughtworks.androidtrain.data.source.local.room.entity.TweetEntity
+import com.thoughtworks.androidtrain.data.source.local.room.dao.*
+import com.thoughtworks.androidtrain.data.source.local.room.entity.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -25,15 +17,29 @@ import javax.inject.Inject
 class TweetRepository @Inject constructor(
     private val appDatabase: AppDatabase,
     private val tweetDataSource: TweetDataSource,
+    private val userDataSource: UserDataSource,
     private val senderDao: SenderDao,
     private val imageDao: ImageDao,
     private val commentDao: CommentDao,
-    private val tweetDao: TweetDao
+    private val tweetDao: TweetDao,
+    private val userDao: UserDao
 ) : ITweetRepository {
+    override fun updateData() {
+        runBlocking(Dispatchers.IO) {
+            appDatabase.clearAllTables()
+            updateUser()
+            updateTweets()
+        }
+    }
 
-    override fun fetchTweets(): Flow<List<Tweet>> {
-        runBlocking(Dispatchers.IO) { updateTweets() }
-        return getTweets()
+    override fun fetchUser() = getUser()
+
+    override fun fetchTweets() = getTweets()
+
+    private fun getUser() = userDao.get().map { userList ->
+        userList.singleOrNull()?.let {
+            User(it.profileImage, it.avatar, it.nick, it.username)
+        }
     }
 
     private fun getTweets(): Flow<List<Tweet>> {
@@ -56,10 +62,21 @@ class TweetRepository @Inject constructor(
         }
     }
 
+    private suspend fun updateUser() {
+        try {
+            val user = userDataSource.loadData()
+            appDatabase.withTransaction {
+                val userEntity = UserEntity(0L, user.profileImage, user.avatar, user.nick, user.username)
+                insertUser(userEntity)
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
     private suspend fun updateTweets() {
         try {
             val tweets = tweetDataSource.loadData()
-            appDatabase.clearAllTables()
             appDatabase.withTransaction {
                 tweets
                     .filter { tweet -> tweet.error == null && tweet.unknownError == null && tweet.content != null }
@@ -95,4 +112,6 @@ class TweetRepository @Inject constructor(
     private suspend fun insertComment(commentEntity: CommentEntity) = commentDao.insert(commentEntity).single()
 
     private suspend fun insertImage(imageEntity: ImageEntity) = imageDao.insert(imageEntity).single()
+
+    private suspend fun insertUser(userEntity: UserEntity) = userDao.insert(userEntity)
 }

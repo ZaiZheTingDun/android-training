@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Tweet {
     private String content;
-    private List<Image> images;
+    private List<Image> images = List.of();
     private Sender sender;
     private List<Comment> comments;
     private String error;

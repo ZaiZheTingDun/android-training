@@ -2,10 +2,7 @@ package com.thoughtworks.androidtrain.data.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.thoughtworks.androidtrain.data.source.local.room.dao.CommentDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.ImageDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.SenderDao
-import com.thoughtworks.androidtrain.data.source.local.room.dao.TweetDao
+import com.thoughtworks.androidtrain.data.source.local.room.dao.*
 import com.thoughtworks.androidtrain.data.source.local.room.entity.*
 
 @Database(
@@ -13,6 +10,7 @@ import com.thoughtworks.androidtrain.data.source.local.room.entity.*
         TweetEntity::class,
         ImageEntity::class,
         SenderEntity::class,
+        UserEntity::class,
         CommentEntity::class],
     version = 1,
     exportSchema = false
@@ -22,4 +20,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun senderDao(): SenderDao
     abstract fun imageDao(): ImageDao
     abstract fun commentDao(): CommentDao
+    abstract fun userDao(): UserDao
 }

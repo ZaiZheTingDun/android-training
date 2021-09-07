@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button9).setOnClickListener {
             startActivity(Intent(this, SpActivity::class.java))
         }
+
+        findViewById<Button>(R.id.button10).setOnClickListener {
+            startActivity(Intent(this, MomentsActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

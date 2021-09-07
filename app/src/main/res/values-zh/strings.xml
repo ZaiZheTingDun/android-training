@@ -9,7 +9,7 @@
     <string name="button7">handler</string>
     <string name="button8">rxjava</string>
     <string name="button9">sp</string>
-    <string name="button10">按钮 10</string>
+    <string name="button10">朋友圈</string>
     <string name="title">Android 练习</string>
     <string name="hello">你好！</string>
     <string name="sign_up">注册</string>
@@ -33,4 +33,5 @@
     <string name="sp_prompt_information">提示信息：\n点击“知道了”不再提示。</string>
     <string name="sp_content">欢迎您回来</string>
     <string name="sp_get_it">知道了</string>
+    <string name="user_profile_background_image">profile background image</string>
 </resources>
